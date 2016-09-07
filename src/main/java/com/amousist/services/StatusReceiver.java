@@ -1,5 +1,7 @@
 package com.amousist.services;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -17,7 +19,7 @@ public class StatusReceiver {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
-	public String postMethod(String mensaje) {
+	public String postMethod(String mensaje) throws IOException {
 		System.out.println(mensaje);
 
 		Gson gson = new Gson();
@@ -29,17 +31,24 @@ public class StatusReceiver {
 			break;
 		case "FAILURE":
 			System.out.println("Build failed");
-			List<String> culprits = jobState.getBuild().getScm().getCulprits();
+			ArrayList<String> culprits = jobState.getBuild().getScm().getCulprits();
 			if (culprits == null || culprits.isEmpty()) {
-				System.out.println("No culprits this time... :(");
-			}
-			else{
-				System.out.println("Culprits: ");
-				for (String culprit: culprits){
-					System.out.println("  - " + culprit);
+				Alarm.getInstance().loud("Atención! La última compilación falló. No se detectaron culpables");
+			} else {
+				StringBuilder culpritText = new StringBuilder();
+				for (int i = 0; i < culprits.size(); i++) {
+					String culprit = culprits.get(i);
+					if (i == 0) {
+						culpritText.append(culprit);
+					} else if (i == (culprits.size() - 1)) {
+						culpritText.append(", o, " + culprit);
+					} else {
+						culpritText.append(", " + culprit);
+					}
 				}
+				Alarm.getInstance().loud("Atención! La última compilación falló. El error fue introducido por: "
+						+ culpritText.toString());
 			}
-			System.out.println("\n");
 			break;
 		}
 

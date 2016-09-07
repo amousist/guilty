@@ -13,7 +13,7 @@
  */
 package com.amousist.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ScmState
 {
@@ -23,7 +23,7 @@ public class ScmState
 
     private String commit;
     
-    private List<String> culprits;
+    private ArrayList<String> culprits;
 
     public String getUrl ()
     {
@@ -55,11 +55,11 @@ public class ScmState
         this.commit = commit;
     }
 
-	public List<String> getCulprits() {
+	public ArrayList<String> getCulprits() {
 		return culprits;
 	}
 
-	public void setCulprits(List<String> culprits) {
+	public void setCulprits(ArrayList<String> culprits) {
 		this.culprits = culprits;
 	}
 }

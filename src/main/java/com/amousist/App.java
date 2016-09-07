@@ -6,6 +6,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import com.amousist.services.Alarm;
+
 public class App {
 	public static void main( String[] args ) throws Exception {
     	ResourceConfig config = new ResourceConfig();
@@ -23,6 +25,7 @@ public class App {
     	     server.join();
     	 } finally {
     	     server.destroy();
+    	     Alarm.getInstance().destroy();
     	 }
     }
 }

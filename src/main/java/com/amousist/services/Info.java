@@ -12,7 +12,8 @@ public class Info {
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String info() throws IOException {
+	public String info() throws IOException, InterruptedException {
+		Thread.sleep(10000);
 		Alarm.getInstance().loud("Atención! La última compilación falló. El error fue introducido por: Ale Mousist");
 		return "Welcome!";
 	}

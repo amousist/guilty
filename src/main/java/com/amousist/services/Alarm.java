@@ -28,8 +28,10 @@ public class Alarm {
 		return instance;
 	}
 	
-	public synchronized void loud(String message) throws IOException {
+	public synchronized void loud(String message) throws IOException, InterruptedException {
 		relay.high();
+		
+		Thread.sleep(5000);
 		
 		ArrayList<String> commands = new ArrayList<String>();
 		
@@ -39,9 +41,13 @@ public class Alarm {
 		commands.add("-l");
 		commands.add("es-ES");
 		commands.add(message);
-		
-		Process picoCommand = new ProcessBuilder(commands).start();
 
+		Process picoCommand = new ProcessBuilder(commands).start();
+		picoCommand.waitFor();
+		System.out.println(picoCommand.exitValue());
+		System.out.println(picoCommand.getOutputStream());
+		System.out.println(picoCommand.getErrorStream());
+		
 		commands = new ArrayList<String>();
 		commands.add("play");
 		commands.add("/tmp/voice.wav");
@@ -81,6 +87,10 @@ public class Alarm {
 		commands.add("10");
 
 		Process playCommand = new ProcessBuilder(commands).start();
+		playCommand.waitFor();
+		System.out.println(playCommand.exitValue());
+		System.out.println(playCommand.getOutputStream());
+		System.out.println(playCommand.getErrorStream());
 		
 		relay.low();
 	}

@@ -33,7 +33,12 @@ public class StatusReceiver {
 			System.out.println("Build failed");
 			ArrayList<String> culprits = jobState.getBuild().getScm().getCulprits();
 			if (culprits == null || culprits.isEmpty()) {
-				Alarm.getInstance().loud("Atención! La última compilación falló. No se detectaron culpables");
+				try {
+					Alarm.getInstance().loud("Atencion!. La ultima compilacion ha fallado. No se detectaron culpables");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				StringBuilder culpritText = new StringBuilder();
 				for (int i = 0; i < culprits.size(); i++) {
@@ -46,8 +51,13 @@ public class StatusReceiver {
 						culpritText.append(", " + culprit);
 					}
 				}
-				Alarm.getInstance().loud("Atención! La última compilación falló. El error fue introducido por: "
-						+ culpritText.toString());
+				try {
+					Alarm.getInstance().loud("Atencion! La ultima compilacion ha fallado. El error fue introducido por: "
+							+ culpritText.toString());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			break;
 		}

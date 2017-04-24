@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.domain.JobState;
-import io.github.services.AlarmService;
+import io.github.services.StatusProcesorService;
 
 @RestController
 public class StatusReceiver {
-	private AlarmService alarmService;
+	private StatusProcesorService statusProcesorService;
 
     @Autowired
-    public void setAlarmService(AlarmService alarmService) {
-        this.alarmService = alarmService;
+    public void setStatusProcesorService(StatusProcesorService statusProcesorService) {
+        this.statusProcesorService = statusProcesorService;
     }
 
 	@RequestMapping(method=RequestMethod.POST, value="/notify")
 	public void postMethod(@RequestBody JobState jobState) throws IOException {
-		alarmService.notify(jobState);
+		statusProcesorService.notify(jobState);
 	}
 	
 //	{ "name":"assembla", "url":"job/assembla/", "build":{ "number":4,

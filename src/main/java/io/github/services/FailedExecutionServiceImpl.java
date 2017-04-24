@@ -14,6 +14,7 @@ public class FailedExecutionServiceImpl implements FailedExecutionService {
 	public void setFailedExecutionRepository(FailedExecutionRepository failedExecutionRepository) {
 		this.failedExecutionRepository = failedExecutionRepository;
 	}
+	
 	@Override
 	public FailedExecution getFailedExecutionById(Integer id) {
 		return failedExecutionRepository.findById(id);
@@ -22,6 +23,11 @@ public class FailedExecutionServiceImpl implements FailedExecutionService {
 	@Override
 	public FailedExecution saveFailedExecution(FailedExecution failedExecution) {
 		return failedExecutionRepository.save(failedExecution);
+	}
+
+	@Override
+	public FailedExecution getLastExecution() {
+		return failedExecutionRepository.findFirst1ByOrderByDateDesc();
 	}
 
 }

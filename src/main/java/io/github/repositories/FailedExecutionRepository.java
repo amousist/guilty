@@ -6,4 +6,5 @@ import io.github.domain.FailedExecution;
 
 public interface FailedExecutionRepository extends CrudRepository<FailedExecution, Integer>{
 	public FailedExecution findById(Integer id);
+	public FailedExecution findFirst1ByOrderByDateDesc();
 }

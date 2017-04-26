@@ -41,9 +41,17 @@ public class ScmUser implements Comparable<ScmUser>{
 
 	@Override
 	public int compareTo(ScmUser other) {
-		if (this.getFailedExecutions().size() < other.getFailedExecutions().size()) return 1;
-		if (this.getFailedExecutions().size() > other.getFailedExecutions().size()) return -1;
+		if (this.failedExecutions4Report() < other.failedExecutions4Report()) return 1;
+		if (this.failedExecutions4Report() > other.failedExecutions4Report()) return -1;
 		
 		return 0;
+	}
+	
+	public int failedExecutions4Report(){
+		int feAmount = 0;
+		for (FailedExecution fe : failedExecutions){
+			if (!fe.isMuted()) feAmount++;
+		}
+		return feAmount;
 	}
 }

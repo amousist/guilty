@@ -26,6 +26,12 @@ public class StatusProcesorServiceImpl implements StatusProcesorService {
 		switch (jobState.getBuild().getStatus()) {
 		case "SUCCESS":
 			logger.info("Build successed\n");
+			for (FailedExecution failedExecution : failedExecutionService.getFailedExecutionsInGracePeriod()) {
+				if (!failedExecution.isMuted()) {
+					failedExecution.setMuted(true);
+					failedExecutionService.saveFailedExecution(failedExecution);
+				}
+			}
 			break;
 		case "FAILURE":
 			logger.info("Build failed");
@@ -40,6 +46,7 @@ public class StatusProcesorServiceImpl implements StatusProcesorService {
 				failedExecution.setDate(new Date());
 				failedExecution.setJobName(jobState.getName());
 				failedExecution.setScmUsers(new HashSet<ScmUser>());
+				failedExecution.setMuted(false);
 
 				StringBuilder culpritText = new StringBuilder();
 				for (int i = 0; i < culprits.size(); i++) {
@@ -73,7 +80,6 @@ public class StatusProcesorServiceImpl implements StatusProcesorService {
 		}
 	}
 
-
 	@Autowired
 	public void setScmUserService(ScmUserService scmUserService) {
 		this.scmUserService = scmUserService;
@@ -83,7 +89,7 @@ public class StatusProcesorServiceImpl implements StatusProcesorService {
 	public void setFailedExecutionService(FailedExecutionService failedExecutionService) {
 		this.failedExecutionService = failedExecutionService;
 	}
-	
+
 	@Autowired
 	public void setAsyncAlarmService(AsyncAlarmService asyncAlarmService) {
 		this.asyncAlarmService = asyncAlarmService;

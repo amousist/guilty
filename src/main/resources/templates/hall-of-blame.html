@@ -52,7 +52,7 @@ table-border {
 					<tbody>
 						<tr th:each="scmUser : ${#lists.sort(scmUsers)}">
 							<td th:text="${scmUser.username}">Username</td>
-							<td th:text="${scmUser.failedExecutions.size()}"><a
+							<td th:text="${scmUser.failedExecutions4Report()}"><a
 								href="/failed-executions/${scmUser.id}">Failed Executions</a></td>
 						</tr>
 					</tbody>

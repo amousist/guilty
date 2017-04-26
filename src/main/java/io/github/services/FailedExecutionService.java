@@ -6,4 +6,5 @@ public interface FailedExecutionService {
     FailedExecution getFailedExecutionById(Integer id);
     FailedExecution saveFailedExecution(FailedExecution failedExecution); 
     FailedExecution getLastExecution();
+    Iterable<FailedExecution> getFailedExecutionsInGracePeriod();
 }

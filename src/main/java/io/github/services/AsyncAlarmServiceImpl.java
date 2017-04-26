@@ -20,19 +20,19 @@ import com.pi4j.io.gpio.RaspiPin;
 public class AsyncAlarmServiceImpl implements AsyncAlarmService {
 
 	private static final Logger logger = LoggerFactory.getLogger(AsyncAlarmServiceImpl.class);
-	private GpioController gpio;
-	private GpioPinDigitalOutput relay;
+//	private GpioController gpio;
+//	private GpioPinDigitalOutput relay;
 
 	@PostConstruct
 	private void initiate() {
 		logger.info("Initializing GPIO");
-		gpio = GpioFactory.getInstance();
-		relay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Relay", PinState.LOW);
+//		gpio = GpioFactory.getInstance();
+//		relay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Relay", PinState.LOW);
 	}
 
 	@Override
 	public void showAlarm(String message) {
-		relay.high();
+//		relay.high();
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -40,7 +40,7 @@ public class AsyncAlarmServiceImpl implements AsyncAlarmService {
 			e.printStackTrace();
 		}
 		speak(message);
-		relay.low();
+//		relay.low();
 	}
 
 	public synchronized void speak(String message) {
@@ -107,6 +107,6 @@ public class AsyncAlarmServiceImpl implements AsyncAlarmService {
 	@PreDestroy
 	public void destroy() {
 		logger.info("Shutting down GPIO");
-		 gpio.shutdown();
+//		 gpio.shutdown();
 	}
 }

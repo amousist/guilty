@@ -17,7 +17,8 @@ public class FailedExecution {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
+	
+	private boolean muted;
 	private int buildNumber;
 	private String jobName;
 	private String commit;
@@ -74,6 +75,14 @@ public class FailedExecution {
 
 	public void setBuildNumber(int buildNumber) {
 		this.buildNumber = buildNumber;
+	}
+
+	public boolean isMuted() {
+		return muted;
+	}
+
+	public void setMuted(boolean muted) {
+		this.muted = muted;
 	}
 
 }

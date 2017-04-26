@@ -1,5 +1,8 @@
 package io.github.services;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,13 @@ public class FailedExecutionServiceImpl implements FailedExecutionService {
 	@Override
 	public FailedExecution getLastExecution() {
 		return failedExecutionRepository.findFirst1ByOrderByDateDesc();
+	}
+
+	@Override
+	public Iterable<FailedExecution> getFailedExecutionsInGracePeriod() {
+		Instant instant = Instant.now().minus(3, ChronoUnit.HOURS);
+		Date gracePeriodStart = Date.from(instant);
+		return failedExecutionRepository.findByDateGreaterThanEqual(gracePeriodStart);
 	}
 
 }

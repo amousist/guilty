@@ -34,4 +34,9 @@ public class ScmUserServiceImpl implements ScmUserService {
 	public ScmUser saveScmUser(ScmUser scmUser) {
 		return scmUserRepository.save(scmUser);
 	}
+
+	@Override
+	public void deleteAll() {
+		scmUserRepository.deleteAll();
+	}
 }

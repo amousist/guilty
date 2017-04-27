@@ -79,7 +79,7 @@ public class StatusProcesorServiceImpl implements StatusProcesorService {
 			break;
 		}
 	}
-
+	
 	@Autowired
 	public void setScmUserService(ScmUserService scmUserService) {
 		this.scmUserService = scmUserService;

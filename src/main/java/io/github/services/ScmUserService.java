@@ -6,5 +6,6 @@ public interface ScmUserService {
     Iterable<ScmUser> listAllScmUsers();
     ScmUser getScmUserById(Integer id);
     ScmUser getScmUserByName(String name);
-    ScmUser saveScmUser(ScmUser scmUser); 
+    ScmUser saveScmUser(ScmUser scmUser);
+    void deleteAll();
 }

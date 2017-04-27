@@ -40,4 +40,9 @@ public class FailedExecutionServiceImpl implements FailedExecutionService {
 		return failedExecutionRepository.findByDateGreaterThanEqual(gracePeriodStart);
 	}
 
+	@Override
+	public void deleteAll() {
+		failedExecutionRepository.deleteAll();
+	}
+
 }

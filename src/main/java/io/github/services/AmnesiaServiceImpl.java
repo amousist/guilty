@@ -11,7 +11,7 @@ public class AmnesiaServiceImpl implements AmnesiaService {
 	private FailedExecutionService failedExecutionService;
 	private static final Logger logger = LoggerFactory.getLogger(AmnesiaServiceImpl.class);
 	
-	@Scheduled(cron="0 * * * * *")
+	@Scheduled(cron="0 0 1 * * *")
 	public void forgetKnowledge() {
 		logger.info("Performing cleanup...");
 		this.failedExecutionService.deleteAll();

@@ -1,4 +1,4 @@
-FROM hypriot/rpi-java
+FROM resin/raspberry-pi3-openjdk
 
 ADD maven/guilty.jar /guilty.jar
 EXPOSE 8080

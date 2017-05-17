@@ -34,11 +34,11 @@ table-border {
 		<div th:if="${not #lists.isEmpty(scmUsers)}">
 			<h1 class="centered">
 				Hurra! New <strike>culprits</strike> <font color="red">beer
-					suppliers</font> found...
+					suppliers</font> found!!
 			</h1>
 			<div>
-				<img class="img-fluid spaced" src="images/toast-small.jpg" width="600"
-					height="200" alt="Make Image responsive" />
+				<img class="img-fluid spaced" src="images/toast-small.jpg"
+					width="600" height="200" alt="Make Image responsive" />
 			</div>
 
 			<div class="table-border">
@@ -59,7 +59,13 @@ table-border {
 				</table>
 			</div>
 		</div>
+		<div th:if="${#lists.isEmpty(scmUsers)}">
+			<h1 class="centered">Waiting for some unsuspecting...</h1>
+			<div>
+				<img class="img-fluid spaced" src="images/spider-web.jpg"
+					width="600" height="200" alt="Make Image responsive" />
+			</div>
+		</div>
 	</div>
-
 </body>
 </html>

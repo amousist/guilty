@@ -11,6 +11,7 @@ import io.github.repositories.FailedExecutionRepository;
 
 @Service
 public class FailedExecutionServiceImpl implements FailedExecutionService {
+	public static final int GRACE_TIME=24;
 	private FailedExecutionRepository failedExecutionRepository;
 
 	@Autowired
@@ -35,7 +36,7 @@ public class FailedExecutionServiceImpl implements FailedExecutionService {
 
 	@Override
 	public Iterable<FailedExecution> getFailedExecutionsInGracePeriod() {
-		Instant instant = Instant.now().minus(3, ChronoUnit.HOURS);
+		Instant instant = Instant.now().minus(GRACE_TIME, ChronoUnit.HOURS);
 		Date gracePeriodStart = Date.from(instant);
 		return failedExecutionRepository.findByDateGreaterThanEqual(gracePeriodStart);
 	}
